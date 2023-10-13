@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_sale_order_report" model="ir.actions.report">
+        <field name="name">Print Excel Report</field>
+        <field name="model">xlreport.report</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">xl_report.report_order_xls</field>
+        <field name="report_file">xl_report.report_order_xls</field>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

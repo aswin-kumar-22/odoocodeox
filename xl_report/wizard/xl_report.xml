@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_sale_excel_wizard_form" model="ir.ui.view">
+        <field name="name">xlreport.report.form</field>
+        <field name="model">xlreport.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="customer_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="from_date" />                       
+                        <field name="to_date" /> 
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_wizard_submit" type="object" string="Submit" class="btn-primary" data-hotkey="y"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="action_sale_excel_wizard" model="ir.actions.act_window">
+        <field name="name">Wizard</field>
+        <field name="res_model">xlreport.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+   </record>
+
+   <menuitem id="excel_report_menu"
+                name="Excel Report"
+                parent="sale.menu_sale_config"
+                action="action_sale_excel_wizard"
+                sequence="10"/>
+
+
+</odoo>

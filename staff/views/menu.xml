@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Staff"
+              id="menu_staff_root"
+              web_icon ="staff,static/description/icon.png"
+              sequence="0"/>
+    
+    <menuitem name="Operation"
+              id="menu_staff_operation"
+              parent = "menu_staff_root"
+              sequence="10"/>
+
+    <menuitem name="Job Categories"
+              id="menu_job_operation"
+              parent = "menu_staff_root"
+              sequence="15"/>    
+
+</odoo>

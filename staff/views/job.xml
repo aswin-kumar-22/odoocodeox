@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_job_form" model="ir.ui.view">
+                <field name="name">company.job.form</field>
+                <field name="model">company.job</field>
+                <field name="arch" type="xml">
+                        <form>
+                                <sheet>
+                                <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible':[('active','=',True)]}"/>
+                                        <div class="oe_title">
+                                                <h1>
+                                                        <field name="ref" readonly="1"/>
+                                                </h1>
+                                                
+                                        </div>
+                                        <group>
+                                                <field name ="name"/>   
+                                                <field name="active" invisible="1"/>         
+                                        </group>
+                                </sheet>
+                                <div class="oe_chatter">
+                                        <field name="message_follower_ids"/>
+                                        <field name="activity_ids"/>
+                                        <field name="message_ids"/>
+                                </div>
+                        </form>
+                </field>
+        </record>
+
+        <record id="view_job_tree" model="ir.ui.view">
+                <field name="name">company.job.tree</field>
+                <field name="model">company.job</field>
+                <field name="arch" type="xml">
+                        <tree>
+                                <field name ="ref"/>
+                                <field name ="name"/>
+                        </tree>
+                </field>
+        </record>
+
+        <record id="view_job_search" model="ir.ui.view">
+                <field name="name">company.job.search</field>
+                <field name="model">company.job</field>
+                <field name="arch" type="xml">
+                        <search>
+                                <field name ="ref"/>
+                                <field name ="name"/>
+                                <filter name="archived" string="Archived" domain="[('active','=',False)]"/>
+                        </search>
+                </field>
+        </record>
+
+        <record id="action_job_form" model="ir.actions.act_window">
+                <field name="name">Job</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">company.job</field>
+                <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_job_details"
+                  name="Job detailes"
+                  parent = "menu_job_operation"
+                  action = "action_job_form"
+                  sequence="20"/>
+                
+</odoo>

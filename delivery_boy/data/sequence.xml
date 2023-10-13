@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_delivery_boy" model="ir.sequence">
+            <field name="name">Delivery boy sequence</field>
+            <field name="code">deliveryboyseq</field>
+            <field name="prefix">DS</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <record id="sequence_picking" model="ir.sequence">
+            <field name="name">Picking sequence</field>
+            <field name="code">pickingseq</field>
+            <field name="prefix">PS</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+
+</odoo>

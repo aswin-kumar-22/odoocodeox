@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Delivery"
+              id="menu_delivery_boy_root"
+              web_icon="delivery_boy,static/description/icon.png"
+              sequence="0"/>
+
+    <menuitem name="Delivery Boy"
+              id="menu_delivery_boy_operation"
+              parent="menu_delivery_boy_root"
+              sequence="10"/>
+
+    <menuitem name="Delivery Status"
+              id ="delivery_status"
+              parent="menu_delivery_boy_root"
+              sequence = "5"/>
+
+
+</odoo>

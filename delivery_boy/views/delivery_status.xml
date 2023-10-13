@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_delivery_status_form" model="ir.ui.view">
+                <field name="name">delivery.status.form</field>
+                <field name="model">delivery.status</field>
+                <field name="arch" type="xml">
+                        <form create="0">
+                                <header>
+                                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                                        <field name="state" widget="statusbar" nolabel="1" />
+                                </header>
+                                <sheet>
+                                        <div class="oe_title">
+                                                <h1>
+                                                        <field name="pref" readonly="1"/>
+                                                </h1>
+                                        </div>
+                                        <group>
+                                                <group>
+                                                        <field name ="name_id" readonly="1"/> 
+                                                        <field name="pick_id" readonly="1"/>      
+                                                </group>
+                                                <group>
+                                                        <field name="date" readonly="1"/>
+                                                        <field name="d_date" readonly="1"/>
+                                                </group>
+                                                <group>
+                                                        <field name="address_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}" readonly="1"/>
+                                                </group>
+                                        </group>
+                                </sheet>
+                                <div class="oe_chatter">
+                                        <field name="message_follower_ids"/>
+                                        <field name="activity_ids"/>
+                                        <field name="message_ids"/>
+                                </div>
+                        </form>
+                </field>
+        </record>
+
+    
+        <record id="view_delivery_status_tree" model="ir.ui.view">
+                <field name="name">delivery.status.tree</field>
+                <field name="model">delivery.status</field>
+                <field name="arch" type="xml">
+                        <tree create="0">
+                                <field name="pref"/>
+                                <field name ="name_id"/>
+                                <field name ="pick_id"/>
+                                <field name="state"/>
+                                <field name="delivery_charge_id"/>
+                                <field name="extra_charge"/>
+                                <field name="t_delivery_charge"/>
+                        </tree>
+                </field>
+        </record>
+
+
+        <record id="view_meeting_search" model="ir.ui.view">
+                <field name="name">delivery.status.search</field>
+                <field name="model">delivery.status</field>
+                <field name="arch" type="xml">
+                        <search>
+                                <field name ="pref"/>
+                                <field name ="name_id"/>
+                                <field name ="pick_id"/>
+                                <group expand="0" string="Group By">
+                                        <filter string="Status" name="group_by_status" context="{'group_by':'state'}"/>
+                                </group>
+                        </search>
+                </field>
+        </record>
+
+
+    <record id="action_delivery_status_form" model="ir.actions.act_window">
+        <field name ="name">Delivery Status </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">delivery.status</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="delivery_boy_status"
+              name="Delivery Boy status"
+              parent="delivery_status"
+              action="action_delivery_status_form"
+              sequence="10"/>
+
+</odoo>

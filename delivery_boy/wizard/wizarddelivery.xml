@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_delivery_wizard_form" model="ir.ui.view">
+        <field name="name">delivery.wizard.form</field>
+        <field name="model">delivery.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select Delivery Boy">
+                <group>
+                    <field name="name_id" />
+                </group>
+                <footer>
+                    <button name="action_wizard_submit" type="object" string="Submit" class="btn-primary" data-hotkey="y"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="delivery_boy_wizard_action" model="ir.actions.act_window">
+        <field name="name">Delivery Boy</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">delivery.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_delivery_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

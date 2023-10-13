@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stages_form" model="ir.ui.view">
+        <field name="name">mom.stages.form</field>
+        <field name="model">mom.stages</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                        <group>
+                            <field name ="name"/>
+                            <field name ="is_won"/>
+                            <field name="fold"/>
+                            <field name="is_default"/>
+                        </group>                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_stages_tree" model="ir.ui.view">
+        <field name="name">mom.stages.tree</field>
+        <field name="model">mom.stages</field>
+        <field name="arch" type="xml">
+                <tree>
+                        <field name ="sequence" widget="handle"/>
+                        <field name ="name"/>
+                        <field name ="is_won"/>
+                        <field name="is_default"/>
+                </tree>
+        </field>
+    </record>
+
+
+
+    <record id="action_stages_form" model="ir.actions.act_window">
+        <field name="name">Stage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mom.stages</field>
+        <field name="context"></field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_stages_details" 
+              name="Stages"
+              parent = "menu_stages_operation"
+              action = "action_stages_form" 
+              sequence="10"/>
+
+</odoo>

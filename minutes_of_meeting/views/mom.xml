@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Kanban View -->
+     <record id="view_meeting_kanban" model="ir.ui.view">
+        <field name="name">mom.mom.kanban</field>
+        <field name="model">mom.mom</field>
+        <field name="arch" type="xml">
+                <kanban default_group_by="stage_id" class="o_kanban_small_column o_opportunity_kanban"
+                archivable="false" sample="1">
+                <field name="stage_id"/>
+                <field name="ref"/>
+                <field name="project_id"/>
+                <field name="meeting_date"/>
+                <field name="duration"/>
+                <field name="meeting_purpose"/>
+                <field name="activity_state"/>
+                <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="d-flex flex-column p-0 oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_content p-0 m-0 position-relative row d-flex flex-fill">
+                                <div class="col-12 text-bg-dark p-1 text-center d-flex flex-column justify-content-center">
+                                    <div t-esc="luxon.DateTime.fromISO(record.meeting_date.raw_value).toFormat('d')" class="display-6"/>
+                                    <div>
+                                        <t t-esc="luxon.DateTime.fromISO(record.meeting_date.raw_value).toFormat('MMM yyyy')"/>
+                                    </div>
+                                    <hr/>
+                                    <field name="ref" />
+                                </div>
+                                <div class="col-9 py-2 px-3 d-flex flex-column justify-content-between pt-3">
+                                    <div>
+                                        <table style="border: 1px solid #070807; width:100%;border-radius:10px; justify-content:center;display:flex;background-color:#070807;">
+                                                <div class="o_kanban_record_title o_text_overflow" t-att-title="record.project_id.value">
+                                                        <tr>
+                                                                <th style="padding-left:5px;padding-right:5px;">
+                                                                        <p style="margin-top:auto;margin-bottom:auto;">
+                                                                                <field name="project_id" class="display-10 text-center  text-light" modifiers="{&quot;required&quot;: true}"/>
+                                                                        </p>
+                                                                </th>
+                                                        </tr>
+                                                </div>
+                                        </table>
+                                        
+                                        <hr style=" background: rgb(0,0,0);background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(13,13,31,1) 63%, rgba(255,255,255,1) 100%);height:5px; "></hr>
+                                         <div>
+                                                <p>Meeting Duration <field name="duration"/> hrs</p>
+                                         </div>       
+      
+                                        
+                                        
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                                <field name="activity_ids" widget="kanban_activity" on_change="1"/>
+                                                
+                                                <div class="o_kanban_record_body o_text_overflow" t-att-title="record.meeting_purpose.value">
+                                                        <field name="meeting_purpose"  modifiers="{&quot;required&quot;: true}"/>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record> 
+    
+
+    <record id="view_meeting_form" model="ir.ui.view">
+                <field name="name">mom.mom.form</field>
+                <field name="model">mom.mom</field>
+                <field name="arch" type="xml">
+                        <form>
+                        <header>
+                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible':[('action_confirm_visible', '=', False)]}" />
+                        <field name="stage_id" widget="statusbar" />
+                        </header>
+                        <sheet>
+                        
+                                <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible':[('active','=',True)]}"/>
+                                        <div class="oe_title">
+                                                <h2>
+                                                        <field name="ref" readonly="1" />
+                                                </h2>
+                                                
+                                                
+                                                <field name ="meeting_purpose" placeholder="Meeting Purpose"/>
+                                        </div>
+                                        <br/>
+                                        <group>
+                                        <group>
+                                                <field name="action_confirm_visible" invisible="1"/>
+                                                <field name ="project_id" options="{'no_open':True,'no_create':True}" />
+                                                <field name ="meeting_place"/>
+                                                <field name="active" invisible="1"/>      
+                                        </group>
+                                        <group>
+                                                <field name ="meeting_date"/>
+                                                <field name ="duration" widget="float_time"/>
+                                        </group>
+                                        </group>
+                                
+                                <notebook>
+                                        <page name="atts" string="Attendees">
+                                                <field name="att_name_ids">
+                                                        <tree editable="bottom">
+                                                                <field name="employee_id"/>
+                                                                <field name="client_id"/>
+                                                        </tree>
+                                                </field> 
+                                               
+                                        </page>
+                                        <page name="points" string="Points Discussed">
+                                                <field name="points_ids">
+                                                        <tree editable="bottom">
+                                                                <field name="points"/>
+                                                        </tree>
+                                                        <form>
+                                                        <group>
+                                                                <field name="points"/>
+                                                        </group>
+                                                        </form>
+                                                </field> 
+                                               
+                                        </page>
+                                        <page string="Action plan">
+                                        
+                                                <field name="action_ids">
+                                                        <tree editable="bottom">
+                                                                <field name="action"/>
+                                                                <field name="deadline"/>
+                                                                
+                                                        </tree>
+                                                        <form>
+                                                        <group>
+                                                                <field name="action"/>
+                                                                <field name="deadline"/>
+                                                        </group>
+                                                        </form>
+                                                </field>
+                                        </page>
+                                </notebook>
+                                </sheet>
+                                <div class="oe_chatter">
+                                        <field name="message_follower_ids"/>
+                                        <field name="activity_ids"/>
+                                        <field name="message_ids"/>
+                                </div>
+                        </form>
+                </field>
+        </record>
+        
+
+
+        <record id="view_meeting_tree" model="ir.ui.view">
+                <field name="name">mom.mom.tree</field>
+                <field name="model">mom.mom</field>
+                <field name="arch" type="xml">
+                        <tree>
+                                <field name ="ref"/>
+                                <field name ="project_id"/>
+                                <field name ="meeting_date"/> 
+                                <field name ="meeting_place"/>
+                                <field name ="duration" widget="float_time"/>
+                                <field name ="meeting_purpose"/>
+                                <field name ="att_name_ids"/>
+                        </tree>
+                </field>
+        </record> 
+
+        <record id="view_meeting_search" model="ir.ui.view">
+                <field name="name">mom.mom.search</field>
+                <field name="model">mom.mom</field>
+                <field name="arch" type="xml">
+                        <search>
+                                <field name ="project_id"/>
+                                <field name ="ref"/>
+                                <field name ="meeting_date"/> 
+                                <field name ="meeting_place"/>
+                                <field name ="duration"/>
+                                <field name ="meeting_purpose"/>
+                                <filter name="archived" string="Archived" domain="[('active','=',False)]"/>
+                                <!-- <group expand="0" string="Group By">
+                                        <filter string="Status" name="group_by_status" context="{'group_by':'stage_id'}"/>
+                                </group> -->
+                        </search>
+                </field>
+        </record>
+
+
+        <record id="action_meeting_form" model="ir.actions.act_window">
+                <field name="name">Meeting</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">mom.mom</field>
+                <!-- <field name="context">{'search_default_group_by_status':1}</field> -->
+                <field name="view_mode">kanban,tree,form</field>
+        </record>
+        <menuitem id="menu_meeting_details"
+                  name="Meeting details"
+                  parent = "menu_meeting_operation"
+                  action = "action_meeting_form"
+                  sequence="10"/>
+                
+</odoo>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <template id ="report_meeting">
+        <t t-call="web.html_container">
+            <t t-call="minutes_of_meeting.mom_layout">
+
+                <t t-foreach="docs" t-as="doc">
+                    <style>
+                .tab_th,.tab_td{border: 1px solid ; text-align:left; height: 40px; padding-left:20px;padding-top:20px;}
+                th{font-size:20px;}
+                td{font-size:18px;}
+                .tab_th{background-color:#edebeb;}
+                    </style>
+
+                    <div style="margin-right:40px;margin-left:40px;"><br/>
+                    <h1>
+                        <strong>
+                            <center>Minutes Of Meeting</center>
+                        </strong>
+                    </h1>
+                    <table style="align:center;border: 1px solid ;width:100%; margin-left: auto; margin-right: auto; ">
+                        <tr style="height:35px;">
+                            <th style="width:20%;padding:20px; text-align:left;">Project Name</th>
+                            <td>
+                                <t t-esc="doc.project_id.name"/>
+                            </td>
+                            <th style="width:20%;padding:20px; text-align:left;">Meeting Date</th>
+                            <td>
+                                <t t-esc="doc.meeting_date.strftime('%d/%m/%y')"/>
+                            </td>
+                        </tr>
+                        <tr style="height:35px;">
+                            <th style="width:20%;padding:20px; text-align:left;">Meeting Place</th>
+                            <td>
+                                <t t-esc="doc.meeting_place"/>
+                            </td>
+                            <th style="width:20%;padding:20px; text-align:left;">Duration </th>
+                            <td>
+                                <t t-esc="int(doc.duration)"/>h
+                                <t t-esc="round((doc.duration-int(doc.duration))*60)"/>m
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <div class="agenda" style="margin-top:3%;">
+                        <h3><strong>Agenda :</strong> <t t-esc="doc.meeting_purpose"/>
+                        </h3>
+                    </div>
+
+                    <t t-if="doc.att_name_ids">
+                        <div style="margin-top:3%;">
+                            <h3><strong>Attendees</strong></h3>
+                            <table style="border: 1px solid #5abfa1; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                                <thead>
+                                    <th class="tab_th">CODE-OX</th>
+                                    <th class="tab_th"><t t-esc="doc.project_id.name"/></th>
+                                </thead>
+                                <t t-set="s_no" t-value="1"/>
+                                <t t-foreach="doc.att_name_ids" t-as="att">
+                                    <tr class="tab_tr">
+                                        <td class="tab_td">
+                                            <t t-esc="att.employee_id.name"/>
+                                        </td>
+                                        <td class="tab_td">
+                                            <t t-esc="att.client_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="s_no" t-value="s_no + 1"/>
+                                </t>
+                            </table>
+                        </div>
+                    </t>
+
+
+                    <t t-if="doc.points_ids">
+                        <div style="margin-top:3%;">
+                            <h3><strong>Points Discussed</strong></h3>
+                            <table style="border: 1px solid #5abfa1; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                                <thead>
+                                    <th class="tab_th" style="width:10%;">S.No</th>
+                                    <th class="tab_th">Descripton</th>
+                                </thead>
+                                <t t-set="s_no" t-value="1"/>
+                                <t t-foreach="doc.points_ids" t-as="pts">
+                                    <tr class="tab_tr">
+                                        <td class="tab_td">
+                                            <t t-esc="s_no"/>
+                                        </td>
+                                        <td class="tab_td">
+                                            <t t-esc="pts.points"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="s_no" t-value="s_no + 1"/>
+                                </t>
+                            </table>
+                        </div>
+                    </t>
+
+                    <t t-if="doc.action_ids">
+                        <div style="margin-top:3%;">
+                            <h3><strong>Action Plan</strong></h3>
+                            <table style="border: 1px solid #5abfa1; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                                <thead>
+                                    <th class="tab_th" style="width:10%;">S.No</th>
+                                    <th class="tab_th" style="width:70%;">Descripton</th>
+                                    <th class="tab_th" style="width:25%;">Deadline</th>
+                                </thead>
+                                <t t-set="s_no" t-value="1"/>
+                                <t t-foreach="doc.action_ids" t-as="act">
+                                    <tr class="tab_tr">
+                                        <td class="tab_td">
+                                            <t t-esc="s_no"/>
+                                        </td>
+                                        <td class="tab_td">
+                                            <t t-esc="act.action"/>
+                                        </td>
+                                        <td class="tab_td">
+                                            <t t-esc="act.deadline"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="s_no" t-value="s_no + 1"/>
+                                </t>
+                            </table>
+                        </div>
+                    </t>
+                </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

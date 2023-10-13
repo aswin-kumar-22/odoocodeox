@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mom_layout">
+
+        <div class="header mr-10">
+            <div style="margin-right:10%;">
+                <img src="statusreport/static/src/img/code-ox.jpeg" style="width:40%;margin-top:50px;margin-bottom:20px;margin-left:45px;"/>
+            </div>
+            <br/><br/>
+            <div style=" border-top:3px solid #212475;margin-right:-20px;margin-left:-20px;">
+            </div>
+        </div>
+
+        <div class="article o_report_layout_standard">
+            <t t-out="0"/>
+        </div>
+        <div class="footer o_standard_footer" style="margin-left:-30px;margin-right:-30px;">
+            <div class="text-center" style="border-top: 2px solid #212475;">
+                <div style="margin-top:45px">
+                    <h5 style="color:#212475;">
+                        Room No 72/1892, 2nd Floor, UAQ BUSINESS CENTER, Westhill, Calicut | web: www.code-ox.com | Email: mail@code-ox.com
+                    </h5>
+                </div>
+                <div style="background-color:#212475;margin-top:15px;">
+                    <p>.</p>
+                </div>
+            </div>
+        </div>   
+    </template>
+
+    
+</odoo>

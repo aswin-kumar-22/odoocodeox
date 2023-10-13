@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="M.O.M"
+              id="menu_mom_root"
+              web_icon ="minutes_of_meeting,static/description/image.jpeg"
+              sequence="0"/>
+
+    <menuitem name="Meetings"
+              id="menu_meeting_operation"
+              parent = "menu_mom_root"
+              sequence="10"/>
+    
+    <menuitem name="Stages"
+              id="menu_stages_operation"
+              parent = "menu_mom_root"
+              sequence="30"/>
+
+</odoo>

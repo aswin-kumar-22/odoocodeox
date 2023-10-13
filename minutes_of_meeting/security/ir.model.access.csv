@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access.mom.mom,access_mom_mom,model_mom_mom,base.group_user,1,1,1,1
+access.mom.attendees,access_mom_attendees,model_mom_attendees,base.group_user,1,1,1,1
+access.mom.points,access_mom_points,model_mom_points,base.group_user,1,1,1,1
+access.mom.action,access_mom_action,model_mom_action,base.group_user,1,1,1,1
+access.mom.stages,access_mom_stages,model_mom_stages,base.group_user,1,1,1,1

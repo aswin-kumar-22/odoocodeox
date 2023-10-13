@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        <record id="paperformat_minutes_of_meeting"  model="report.paperformat">
+            <field name="name">Status Report Paper</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30.00</field>
+            <field name="margin_bottom">18.00</field>
+            <field name="margin_left">0.0</field>
+            <field name="margin_right">0.0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">30</field>
+            <field name="dpi">125</field>
+        </record>
+
+        <record id="report_minutes_of_meeting_report" model="ir.actions.report">
+            <field name="name">Print Minutes Of Meeting Report</field>
+            <field name="model">mom.mom</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">minutes_of_meeting.report_meeting</field>
+            <field name="report_file">minutes_of_meeting.report_meeting</field>
+            <field name="print_report_name">'minutes'</field>
+            <field name="binding_model_id" ref="model_mom_mom"/>
+            <field name="paperformat_id" ref="minutes_of_meeting.paperformat_minutes_of_meeting" />
+            <field name="binding_type">report</field>
+        </record>
+</odoo>

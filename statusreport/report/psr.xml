@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id ="report_psr">
+        <t t-call="web.html_container">
+            <t t-call="statusreport.psr_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <style>
+                    th,td{border: 1px solid black; text-align:left; height: 40px; padding-left:5px; vertical-align:middle;}
+                    th{background-color:grey; color:white;}
+                        </style>
+                        <h2><strong>
+                            <center>Project Report Status</center>
+                        </strong>
+                        </h2>
+                        <br/>
+                        <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+
+                            <tr>
+                                <th style="width:10%;">To</th>
+                                <td style="width:40%;">
+                                    <t t-esc="doc.to_id.name"/>
+                                </td>
+                                <th style="width:25%;">Phone Number</th>
+                                <td style="width:25%;">
+                                    <t t-if="doc.to_id.mobile">
+                                        <t t-esc="doc.to_id.mobile"/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-esc="doc.to_id.phone"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>From</th>
+                                <td>
+                                    <t t-esc="doc.from_id.name"/>
+                                </td>
+                                <th>Pages</th>
+                                <td>
+                                    <t t-esc="doc.pages"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>CC</th>
+                                <td>
+                                        <t t-esc="', '.join(doc.cc_ids.mapped('name'))"/>
+                                        
+
+                                </td>
+                                <th>Meeting Date</th>
+                                <td>
+                                    <t t-esc="doc.date.strftime('%d/%m/%y')"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>PSR</th>
+                                <td colspan="3">
+                                    <t t-esc="doc.psr"/>
+                                </td>
+
+                            </tr>
+                        </table>
+                        <br/><br/>
+                        <h3><strong>Sub: - Project Status Report as on 
+                            <i>
+                            <t t-esc="doc.date.strftime('%d/%m/%y')"/>
+                            </i> .</strong>
+                        </h3>
+                        <br/><br/>
+                        <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                            <thead>
+                                <th>Project Name</th>
+                                <th>Project Start Date</th>
+                                <th>Orginal Live Date</th>
+                                <th>Revised Live Date</th>
+                                <th>Orginal Completion Date</th>
+                                <th>Exp Project Completion Date</th>
+                            </thead>
+                            <t t-set="s_no" t-value="1"/>
+                            <t t-foreach="doc.project_dates_ids" t-as="pro">
+                                <tr>
+                                    <td>
+                                        <t t-esc="pro.project_name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="pro.project_start_date.strftime('%d/%m/%y')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="pro.orginal_live_date.strftime('%d/%m/%y')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="pro.revised_live_date.strftime('%d/%m/%y')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="pro.orginal_completion_date.strftime('%d/%m/%y')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="pro.exp_project_completion_date.strftime('%d/%m/%y')"/>
+                                    </td>
+                                </tr>
+                            <t t-set="s_no" t-value="s_no + 1"/>
+                            </t>
+                        </table>
+                        <br/><br/>
+                        <h3><strong>
+
+                            Current Project Status: -       
+                            <t t-esc="doc.projectstatus"/>
+                            .
+                        </strong>
+                        </h3>
+                        <br></br>
+                        <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                            <thead>
+                                <th>Budgeted Days</th>
+                                <th>Actual Time Spent</th>
+                                <th>Balance To Go</th>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <t t-esc="doc.budgetdays"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.averagetime"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.balance"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/><br/>
+                        <t t-if="doc.client_resolution_lines_ids">
+                            <h5>Issues that need a resolution from 
+                                <t t-esc="doc.project_id.company_id.name"/>
+                            .</h5>
+                        <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                            <thead>
+                                <th>S.No</th>
+                                <th>Issue</th>
+                                <th>Impact</th>
+                                <th>Responsibility</th>
+                                <th>Resolution Required By</th>
+                                <th>Age In Days</th>
+                            </thead>
+                            <t t-set="s_no" t-value="1"/>
+                            <t t-foreach="doc.client_resolution_lines_ids" t-as="cli">
+                                <tr>
+                                    <td>
+                                        <t t-esc="s_no"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="cli.issue"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="cli.impact"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="cli.respossibility"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="cli.resolution_required_by.strftime('%d/%m/%y')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="cli.age_in_days"/>
+                                    </td>
+                                </tr>
+                                <t t-set="s_no" t-value="s_no + 1"/>
+                            </t>
+                        </table>
+                        <br/><br/>
+                    </t>
+                    <t t-if="doc.company_resolution_lines_ids">
+
+                        <h5>Issues that need a resolution from CODE-OX.</h5>
+                        <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                            <thead>
+                                <th>S.No</th>
+                                <th>Issue</th>
+                                <th>Impact</th>
+                                <th>Responsibility</th>
+                                <th>Resolution Required By</th>
+                                <th>Age In Days</th>
+                            </thead>
+                            <t t-set="s_no" t-value="1"/>
+                            <t t-foreach="doc.company_resolution_lines_ids" t-as="com">
+                                <tr>
+                                    <td>
+                                        <t t-esc="s_no"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="com.issue"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="com.impact"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="com.respossibility"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="com.resolution_required_by.strftime('%d/%m/%y')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="com.age_in_days"/>
+                                    </td>
+                                </tr>
+                                <t t-set="s_no" t-value="s_no + 1"/>
+                            </t>
+                        </table>
+                    </t>
+                    
+                    <br/><br/>
+                    <t t-if="doc.client_activity_lines_ids">
+
+                        <h3><strong>Activities Completed during the period between 
+                            <i>
+                                <t t-esc="doc.activity_from_date.strftime('%d/%m/%y')"/>
+                            </i> And 
+                            <i>
+                                <t t-esc="doc.activity_to_date.strftime('%d/%m/%y')"/>
+                            </i>
+                        </strong>
+                        </h3>
+                        <h5>
+                            <t t-esc="doc.project_id.company_id.name"/>
+                        </h5>
+                        <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                            <thead>
+                                <th>S.No</th>
+                                <th>Date</th>
+                                <th>Activity</th>
+                                <th>Consultant</th>
+                                <th>Planed Effort (In Hrs)</th>
+                                <th>Actual Effort (In Hrs)</th>
+                                <th>Planed Status</th>
+                                <th>Actual Status</th>
+                                <th>Remarks</th>
+
+                            </thead>
+                            <t t-set="s_no" t-value="1"/>
+                            <t t-foreach="doc.client_activity_lines_ids" t-as="act">
+                                <tr>
+                                    <td>
+                                        <t t-esc="s_no"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.date.strftime('%d/%m/%y')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.activity"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.consultant"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.planed_effect"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.actual_effect"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.planed_status"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.actual_status"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.remarks"/>
+                                    </td>
+
+                                </tr>
+                                <t t-set="s_no" t-value="s_no + 1"/>
+                            </t>
+                        </table>
+                    </t>
+                    <br/><br/>
+                    <t t-if="doc.company_activity_lines_ids">
+                        <h5>CODE-OX</h5>
+                        <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                            <thead>
+                                <th>S.No</th>
+                                <th>Date</th>
+                                <th>Activity</th>
+                                <th>Consultant</th>
+                                <th>Planed Effort (In Hrs)</th>
+                                <th>Actual Effort (In Hrs)</th>
+                                <th>Planed Status</th>
+                                <th>Actual Status</th>
+                                <th>Remarks</th>
+                            </thead>
+                            <t t-set="s_no" t-value="1"/>
+                            <t t-foreach="doc.company_activity_lines_ids" t-as="act">
+                                <tr>
+                                    <td>
+                                        <t t-esc="s_no"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.date.strftime('%d/%m/%y')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.activity"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.consultant"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.planed_effect"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.actual_effect"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.planed_status"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.actual_status"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="act.remarks"/>
+                                    </td>
+
+                                </tr>
+                                <t t-set="s_no" t-value="s_no + 1"/>
+                            </t>
+                        </table>
+                    </t>
+                    <br/>
+                    <br/>
+                    <t t-if="doc.client_activity_scheduled_lines_ids">
+                        <h3><strong>Activities Scheduled for the period between
+                            <i>
+                                <t t-esc="doc.activity_scheduled_from_date.strftime('%d/%m/%y')"/>
+                            </i> And 
+                            <i>
+                                <t t-esc="doc.activity_scheduled_to_date.strftime('%d/%m/%y')"/>
+                            </i>
+                        </strong>
+                        </h3>
+                        <h5>
+                            <t t-esc="doc.project_id.company_id.name"/>
+                        </h5>
+                        <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                            <thead>
+                                <th>S.No</th>
+                                <th>Date</th>
+                                <th>Activity</th>
+                                <th>Process Owner</th>
+                                <th>Planed Status</th>
+                                <th>Remarks</th>
+                            </thead>
+                            <t t-set="s_no" t-value="1"/>
+                            <t t-foreach="doc.client_activity_scheduled_lines_ids" t-as="sch">
+                                <tr>
+                                    <td>
+                                        <t t-esc="s_no"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="sch.date.strftime('%d/%m/%y')"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="sch.activity"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="sch.process_owner"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="sch.planed_status"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="sch.remarks"/>
+                                    </td>
+                                </tr>
+                                <t t-set="s_no" t-value="s_no + 1"/>
+                            </t>
+                        </table>
+                    </t>
+                    <br/><br/>
+                    <t t-if="doc.company_activity_scheduled_lines_ids">
+                        <h5>CODE-OX</h5>
+                            <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                                <thead>
+                                    <th>S.No</th>
+                                    <th>Date</th>
+                                    <th>Activity</th>
+                                    <th>Consultant</th>
+                                    <th>Planed Effort (In Hrs)</th>
+                                    <th>Planed Status</th>
+                                    <th>Remarks</th>
+                                </thead>
+                                <t t-set="s_no" t-value="1"/>
+                                <t t-foreach="doc.company_activity_scheduled_lines_ids" t-as="sch">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="s_no"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="sch.date.strftime('%d/%m/%y')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="sch.activity"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="sch.consultant"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="sch.planed_effect"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="sch.planed_status"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="sch.remarks"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="s_no" t-value="s_no + 1"/>
+                                </t>
+                            </table>
+                        </t>
+                        <br/>
+                        <br/>
+                        <t t-if="doc.project_mitigation_lines_ids">
+                            <h3><strong>Project Risk And Mitigation Plan</strong>
+                            </h3>
+                            <table style="border: 2px solid black; border-collapse:collapse; width:100%; margin-left: auto; margin-right: auto; ">
+                                <thead>
+                                    <th>S.No</th>
+                                    <th>Risk Identified Date</th>
+                                    <th>Risk Identified Stage</th>
+                                    <th>Risk Mitigation Date</th>
+                                    <th>Risk Decs </th>
+                                    <th>Impact </th>
+                                    <th>Severity </th>
+                                    <th>Suggested Mitigation </th>
+                                    <th>Sponsibility</th>
+                                    <th>Status</th>
+                                    <th>Action Initiated</th>
+                                </thead>
+                                <t t-set="s_no" t-value="1"/>
+                                <t t-foreach="doc.project_mitigation_lines_ids" t-as="mit">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="s_no"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.risk_identified_date.strftime('%d/%m/%y')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.risk_identified_stage"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.risk_mitigation_date.strftime('%d/%m/%y')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.risk_decs"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.impact"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.severity"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.suggested_mitigation"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.sponsibility"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.status"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mit.action_initiated"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="s_no" t-value="s_no + 1"/>
+                                </t>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

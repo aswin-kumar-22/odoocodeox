@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<menuitem name="PSR"
+    web_icon="statusreport,static/description/icon.png"
+    id="statusreport_ai"
+    sequence="10"/>
+
+    <menuitem name="Report"
+        id="report_pi"
+        parent="statusreport_ai"
+        sequence="20"/>
+</odoo>

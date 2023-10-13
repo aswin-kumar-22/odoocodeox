@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access.status.report,access_status_report,model_status_report,base.group_user,1,1,1,1
+access.client.resolution.report.lines,access_client_resolution_report_lines,model_client_resolution_report_lines,base.group_user,1,1,1,1
+access.company.resolution.report.lines,access_company_resolution_report_lines,model_company_resolution_report_lines,base.group_user,1,1,1,1
+access.client.activity.report.lines,access_client_activity_report_lines,model_client_activity_report_lines,base.group_user,1,1,1,1
+access.company.activity.report.lines,access_company_activity_report_lines,model_company_activity_report_lines,base.group_user,1,1,1,1
+access.project.mitigation.lines,access_project_mitigation_lines,model_project_mitigation_lines,base.group_user,1,1,1,1
+access.client.activity.scheduled.report.lines,access_client_activity_scheduled_report_lines,model_client_activity_scheduled_report_lines,base.group_user,1,1,1,1
+access.company.activity.scheduled.report.lines,access_company_activity_scheduled_report_lines,model_company_activity_scheduled_report_lines,base.group_user,1,1,1,1
+access.project.dates.lines,access_project_dates_lines,model_project_dates_lines,base.group_user,1,1,1,1
+
+

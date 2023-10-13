@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="psr_layout">
+        <div class="header" style=" border-bottom:2px solid #000;">
+            <div>
+                <img src="statusreport/static/src/img/code-ox.jpeg" style="width:30%;margin-top:50px;margin-bottom:20px;"/>
+            </div>
+        </div>
+
+        <div class="article o_report_layout_standard">
+            <t t-out="0"/>
+        </div>
+
+        <div class="footer o_standard_footer">
+            <div class="text-center" style="border-top: 2px solid black;">
+                <ul class="list-inline">
+                    <li style="padding:20px;">Page: <span class="page"/>/<span class="topage"/></li>
+               </ul>
+            </div>
+        </div> 
+        
+        
+
+    </template>
+
+
+</odoo>

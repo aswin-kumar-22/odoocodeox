@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_report_form" model="ir.ui.view">
+        <field name="name">status.report.form</field>
+        <field name="model">status.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h2>
+                            <field name="record" readonly="1"/>
+                        </h2>
+
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="from_id"/>
+                            <field name="to_id"/>
+                            <field name="cc_ids" widget="many2many_tags"/>
+                            <field name="projectstatus"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="budgetdays"/>
+                            <field name="averagetime"/>
+                            <field name="balance" readonly="1" force_save="True"/>
+                            <field name="pages"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="psr"/>
+                    </group>
+                    <notebook>
+                        <page name="project_dates" string="Project Dates">
+                            <field name="project_dates_ids">
+                                <tree editable="bottom">
+                                    <field name="project_name"/>
+                                    <field name="project_start_date"/>
+                                    <field name="orginal_live_date"/>
+                                    <field name="revised_live_date"/>
+                                    <field name="orginal_completion_date"/>
+                                    <field name="exp_project_completion_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="activity_status_report_company" string="Activity Completed By CODE-OX">
+                            <group>
+                                <group>
+                                    <field name="activity_from_date"/>
+                                </group>
+                                <group>
+                                    <field name="activity_to_date"/>
+                                </group>
+                            </group>
+
+                            <field name="company_activity_lines_ids">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="activity"/>
+                                    <field name="consultant"/>
+                                    <field name="planed_effect"/>
+                                    <field name="actual_effect"/>
+                                    <field name="planed_status"/>
+                                    <field name="actual_status"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="activity_status_report_client" string="Activity Completed By Client">
+                            <field name="client_activity_lines_ids">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="activity"/>
+                                    <field name="consultant"/>
+                                    <field name="planed_effect"/>
+                                    <field name="actual_effect"/>
+                                    <field name="planed_status"/>
+                                    <field name="actual_status"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="resolution_status_report_company" string="Resolution By CODE-OX">
+                            <field name="company_resolution_lines_ids">
+                                <tree editable="bottom">
+                                    <field name="issue"/>
+                                    <field name="impact"/>
+                                    <field name="respossibility"/>
+                                    <field name="resolution_required_by"/>
+                                    <field name="action_plan"/>
+                                    <field name="age_in_days"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="resolution_status_report_client" string="Resolution By Client">
+                            <field name="client_resolution_lines_ids">
+                                <tree editable="bottom">
+                                    <field name="issue"/>
+                                    <field name="impact"/>
+                                    <field name="respossibility"/>
+                                    <field name="resolution_required_by"/>
+                                    <field name="age_in_days"/>
+                                </tree>
+                            </field>
+                        </page>
+
+
+                        <page name="scheduled_activity_status_report_company" string="Scheduled Activity Completed By CODE-OX">
+                            <group>
+                                <group>
+                                    <field name="activity_scheduled_from_date"/>
+                                </group>
+                                <group>
+                                    <field name="activity_scheduled_to_date"/>
+                                </group>
+                            </group>
+
+                            <field name="company_activity_scheduled_lines_ids">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="activity"/>
+                                    <field name="consultant"/>
+                                    <field name="planed_effect"/>
+                                    <field name="planed_status"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="scheduled_activity_status_report_client" string="Scheduled Activity Completed By Client">
+                            <field name="client_activity_scheduled_lines_ids">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="activity"/>
+                                    <field name="process_owner"/>
+                                    <field name="planed_status"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="project_mitigation_lines" string="Project Risk Mitigation Plan">
+                            <field name="project_mitigation_lines_ids">
+                                <tree editable="bottom">
+                                    <field name="risk_identified_date"/>
+                                    <field name="risk_identified_stage"/>
+                                    <field name="risk_mitigation_date"/>
+                                    <field name="risk_decs"/>
+                                    <field name="impact"/>
+                                    <field name="severity"/>
+                                    <field name="suggested_mitigation"/>
+                                    <field name="sponsibility"/>
+                                    <field name="status"/>
+                                    <field name="action_initiated"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_report_tree" model="ir.ui.view">
+        <field name="name">status.report.tree</field>
+        <field name="model">status.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name ="record"/>
+                <field name ="project_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_search" model="ir.ui.view">
+        <field name="name">status.report.search</field>
+        <field name="model">status.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name ="record"/>
+                <field name ="project_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_report_form" model="ir.actions.act_window">
+        <field name="name">Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">status.report</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="status_report" name="report" parent="report_pi" action="action_report_form" sequence="13" />
+</odoo>
